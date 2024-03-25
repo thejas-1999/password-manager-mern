@@ -74,7 +74,7 @@ const Manager = () => {
                 ref={passRef}
                 value={form.password}
                 onChange={handleChange}
-                className="rounded-full border border-purple-500 w-full p-4 py-1"
+                className="rounded-full border border-purple-500 w-full p-4 py-1 ring-white ring-1"
                 type="password"
                 name="password"
                 placeholder="Enter Password..."
@@ -102,7 +102,7 @@ const Manager = () => {
               src="https://cdn.lordicon.com/jgnvfzqg.json"
               trigger="hover"
             ></lord-icon>
-            Add Password
+            Save
           </button>
         </div>
         <Table passwordArray={passwordArray} />
