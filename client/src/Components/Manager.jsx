@@ -3,6 +3,7 @@ import Table from "./Table";
 
 const Manager = () => {
   const ref = useRef();
+  const passRef = useRef();
   const [form, setForm] = useState({ site: "", username: "", password: "" });
   const [passwordArray, setPasswordArray] = useState([]);
 
@@ -15,11 +16,13 @@ const Manager = () => {
   }, []);
 
   const showPassword = () => {
-    alert(`Show the password`);
+    passRef.current.type = "text";
     if (ref.current.src.includes("icons/hidden.png")) {
       ref.current.src = "icons/eye.png";
+      passRef.current.type = "text";
     } else {
       ref.current.src = "icons/hidden.png";
+      passRef.current.type = "password";
     }
   };
 
@@ -68,10 +71,11 @@ const Manager = () => {
             />
             <div className="relative">
               <input
+                ref={passRef}
                 value={form.password}
                 onChange={handleChange}
                 className="rounded-full border border-purple-500 w-full p-4 py-1"
-                type=""
+                type="password"
                 name="password"
                 placeholder="Enter Password..."
               />
