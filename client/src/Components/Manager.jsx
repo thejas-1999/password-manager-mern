@@ -1,7 +1,19 @@
+import { useRef } from "react";
+
 const Manager = () => {
+  const ref = useRef();
+  const showPassword = () => {
+    alert(`Show the password`);
+    if (ref.current.src.includes("icons/hidden.png")) {
+      ref.current.src = "icons/eye.png";
+    } else {
+      ref.current.src = "icons/hidden.png";
+    }
+  };
+
   return (
     <>
-      <div class="absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+      <div className="absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
 
       <div className="  myContainer">
         <h1 className="text-4xl font-bold text-center">
@@ -31,8 +43,17 @@ const Manager = () => {
                 type=""
                 placeholder="Enter Password..."
               />
-              <span className="absolute right-[3px] top-[4px] cursor-pointer">
-                <img className="py-1" width={20} src="icons/eye.png" alt="" />
+              <span
+                className="absolute right-[3px] top-[4px] cursor-pointer"
+                onClick={showPassword}
+              >
+                <img
+                  ref={ref}
+                  className="py-1"
+                  width={20}
+                  src="icons/hidden.png"
+                  alt=""
+                />
               </span>
             </div>
           </div>
