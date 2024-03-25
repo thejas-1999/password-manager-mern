@@ -8,7 +8,7 @@ const NavBar = () => {
           <span className="text-purple-700">/&gt;</span>
         </div>
         <ul>
-          <li className="flex gap-4">
+          {/*  <li className="flex gap-4">
             <a className="hover font-bold" href="#">
               Home
             </a>
@@ -18,8 +18,18 @@ const NavBar = () => {
             <a className="hover font-bold" href="#">
               Contact
             </a>
-          </li>
+          </li> */}
         </ul>
+        <a href="https://github.com/thejas-1999/password-manager-mern">
+          <button className="text-white my-5 rounded-full bg-purple-500  flex gap-2 justify-between items-center">
+            <img
+              className=" p-1 w-10 rounded-full "
+              src="icons/github.png"
+              alt="github logo "
+            />
+            <span className="font-bold px-2">GitHub</span>
+          </button>
+        </a>
       </div>
     </nav>
   );
