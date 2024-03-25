@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import Table from "./Table";
 
 const Manager = () => {
   const ref = useRef();
@@ -23,9 +24,10 @@ const Manager = () => {
   };
 
   const savePassword = () => {
-    setPasswordArray([form]); // Set the password array with only the new entry
-    localStorage.setItem("passwords", JSON.stringify([form])); // Store only the new entry in localStorage
-    console.log([form]);
+    const updatedPasswords = [...passwordArray, form]; // Create a new array by adding the new password to the existing array
+    setPasswordArray(updatedPasswords); // Update the password array state with the new array
+    localStorage.setItem("passwords", JSON.stringify(updatedPasswords)); // Store the updated array in localStorage
+    console.log(updatedPasswords);
   };
 
   const handleChange = (e) => {
@@ -99,6 +101,7 @@ const Manager = () => {
             Add Password
           </button>
         </div>
+        <Table passwordArray={passwordArray} />
       </div>
     </>
   );
