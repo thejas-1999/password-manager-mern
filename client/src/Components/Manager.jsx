@@ -4,6 +4,7 @@ import Table from "./Table";
 
 const Manager = () => {
   const ref = useRef();
+  const passwordref = useRef();
   const [form, setForm] = useState({ site: "", username: "", password: "" });
   const [passwordArray, setPasswordArray] = useState([]);
 
@@ -18,12 +19,21 @@ const Manager = () => {
   const showPassword = () => {
     if (ref.current.src.includes("icons/hidden.png")) {
       ref.current.src = "icons/eye.png";
+      passwordref.current.type = "text";
     } else {
       ref.current.src = "icons/hidden.png";
+      passwordref.current.type = "password";
     }
   };
 
   const savePassword = () => {
+    const updatedPasswords = [...passwordArray, { ...form, id: uuidv4() }];
+    setPasswordArray(updatedPasswords);
+    localStorage.setItem("passwords", JSON.stringify(updatedPasswords));
+    console.log(updatedPasswords);
+  };
+
+  const deletePassword = () => {
     const updatedPasswords = [...passwordArray, { ...form, id: uuidv4() }];
     setPasswordArray(updatedPasswords);
     localStorage.setItem("passwords", JSON.stringify(updatedPasswords));
@@ -68,10 +78,11 @@ const Manager = () => {
             />
             <div className="relative">
               <input
+                ref={passwordref}
                 value={form.password}
                 onChange={handleChange}
                 className="rounded-full border border-purple-500 w-full p-4 py-1"
-                type=""
+                type="password"
                 name="password"
                 placeholder="Enter Password..."
               />
