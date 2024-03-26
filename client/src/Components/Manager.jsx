@@ -74,7 +74,7 @@ const Manager = () => {
     <>
       <div className="absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
 
-      <div className="  myContainer">
+      <div className="px-2 md:px-0 md: myContainer">
         <h1 className="text-4xl font-bold text-center">
           <span className="text-purple-700">&lt;</span>
           Pass<span className="text-purple-700">OP</span>
@@ -89,7 +89,7 @@ const Manager = () => {
             value={form.site}
             onChange={handleChange}
             className="rounded-full border border-purple-500 w-full p-4 py-1"
-            type=""
+            type="site"
             name="site"
             placeholder="Enter Website URL..."
           />
@@ -98,7 +98,7 @@ const Manager = () => {
               value={form.username}
               onChange={handleChange}
               className="rounded-full border border-purple-500 w-full p-4 py-1"
-              type=""
+              type="username"
               name="username"
               placeholder="Enter Username..."
             />
