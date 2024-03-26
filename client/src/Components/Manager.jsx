@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 import Table from "./Table";
 
 const Manager = () => {
@@ -23,7 +24,7 @@ const Manager = () => {
   };
 
   const savePassword = () => {
-    const updatedPasswords = [...passwordArray, form];
+    const updatedPasswords = [...passwordArray, { ...form, id: uuidv4() }];
     setPasswordArray(updatedPasswords);
     localStorage.setItem("passwords", JSON.stringify(updatedPasswords));
     console.log(updatedPasswords);
@@ -91,13 +92,13 @@ const Manager = () => {
 
           <button
             onClick={savePassword}
-            className="flex gap-2 justify-center items-center bg-purple-500 rounded-full px-4 py-2 w-fit hover:bg-purple-300 border-2 border-purple-700"
+            className="flex gap-2 justify-center items-center bg-purple-500 rounded-full px-4 py-2 w-fit hover:bg-purple-300 border-2 border-purple-700 ring"
           >
             <lord-icon
               src="https://cdn.lordicon.com/jgnvfzqg.json"
               trigger="hover"
             ></lord-icon>
-            Add Password
+            Save
           </button>
         </div>
         <Table passwordArray={passwordArray} />
