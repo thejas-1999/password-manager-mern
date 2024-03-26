@@ -21,7 +21,7 @@ const NavBar = () => {
           </li> */}
         </ul>
         <a href="https://github.com/thejas-1999/password-manager-mern">
-          <button className="text-white my-5 rounded-full bg-purple-500  flex gap-2 justify-between items-center">
+          <button className="text-white my-5 rounded-full bg-purple-500  flex gap-2 justify-between items-center ring-white ring-1">
             <img
               className=" p-1 w-10 rounded-full "
               src="icons/github.png"
