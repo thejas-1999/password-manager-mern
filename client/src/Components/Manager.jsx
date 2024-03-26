@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 import { v4 as uuidv4 } from "uuid";
 import Table from "./Table";
 
@@ -37,6 +36,7 @@ const Manager = () => {
     setPasswordArray(updatedPasswords);
     localStorage.setItem("passwords", JSON.stringify(updatedPasswords));
     console.log(updatedPasswords);
+
     setForm({ site: "", username: "", password: "" });
   };
 
