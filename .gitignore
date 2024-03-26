@@ -11,6 +11,7 @@ node_modules
 tailwind.config.js
 postcss.config.js
 client/node_modules
+abc.jsx
 dist
 dist-ssr
 *.local

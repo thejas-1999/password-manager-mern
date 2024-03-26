@@ -3,7 +3,6 @@ import Table from "./Table";
 
 const Manager = () => {
   const ref = useRef();
-  const passRef = useRef();
   const [form, setForm] = useState({ site: "", username: "", password: "" });
   const [passwordArray, setPasswordArray] = useState([]);
 
@@ -16,13 +15,11 @@ const Manager = () => {
   }, []);
 
   const showPassword = () => {
-    passRef.current.type = "text";
+    alert(`Show the password`);
     if (ref.current.src.includes("icons/hidden.png")) {
       ref.current.src = "icons/eye.png";
-      passRef.current.type = "text";
     } else {
       ref.current.src = "icons/hidden.png";
-      passRef.current.type = "password";
     }
   };
 
@@ -71,11 +68,10 @@ const Manager = () => {
             />
             <div className="relative">
               <input
-                ref={passRef}
                 value={form.password}
                 onChange={handleChange}
-                className="rounded-full border border-purple-500 w-full p-4 py-1 ring-white ring-1"
-                type="password"
+                className="rounded-full border border-purple-500 w-full p-4 py-1"
+                type=""
                 name="password"
                 placeholder="Enter Password..."
               />
@@ -102,7 +98,7 @@ const Manager = () => {
               src="https://cdn.lordicon.com/jgnvfzqg.json"
               trigger="hover"
             ></lord-icon>
-            Save
+            Add Password
           </button>
         </div>
         <Table passwordArray={passwordArray} />
