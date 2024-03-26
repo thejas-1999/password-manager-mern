@@ -15,7 +15,6 @@ const Manager = () => {
   }, []);
 
   const showPassword = () => {
-    alert(`Show the password`);
     if (ref.current.src.includes("icons/hidden.png")) {
       ref.current.src = "icons/eye.png";
     } else {
@@ -24,9 +23,9 @@ const Manager = () => {
   };
 
   const savePassword = () => {
-    const updatedPasswords = [...passwordArray, form]; // Create a new array by adding the new password to the existing array
-    setPasswordArray(updatedPasswords); // Update the password array state with the new array
-    localStorage.setItem("passwords", JSON.stringify(updatedPasswords)); // Store the updated array in localStorage
+    const updatedPasswords = [...passwordArray, form];
+    setPasswordArray(updatedPasswords);
+    localStorage.setItem("passwords", JSON.stringify(updatedPasswords));
     console.log(updatedPasswords);
   };
 
