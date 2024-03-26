@@ -1,7 +1,7 @@
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Table = ({ passwordArray }) => {
+const Table = ({ passwordArray, deletePassword, editPassword }) => {
   const copyText = (text) => {
     navigator.clipboard
       .writeText(text)
@@ -103,13 +103,13 @@ const Table = ({ passwordArray }) => {
                 <td className="py-2 border border-white text-center w-32">
                   <div className="flex items-center justify-center gap-3">
                     <div className="cursor-pointer ">
-                      <span>
+                      <span onClick={() => editPassword(item.id)}>
                         <lord-icon
                           src="https://cdn.lordicon.com/gwlusjdu.json"
                           trigger="hover"
                         ></lord-icon>
                       </span>
-                      <span>
+                      <span onClick={() => deletePassword(item.id)}>
                         <lord-icon
                           src="https://cdn.lordicon.com/skkahier.json"
                           trigger="hover"

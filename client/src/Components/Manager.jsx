@@ -10,9 +10,13 @@ const Manager = () => {
 
   useEffect(() => {
     let passwords = localStorage.getItem("passwords");
-    let passwordArray;
     if (passwords) {
-      setPasswordArray(JSON.parse(passwords));
+      try {
+        setPasswordArray(JSON.parse(passwords));
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+        // Handle the error, maybe clear localStorage or set a default value
+      }
     }
   }, []);
 
@@ -31,13 +35,33 @@ const Manager = () => {
     setPasswordArray(updatedPasswords);
     localStorage.setItem("passwords", JSON.stringify(updatedPasswords));
     console.log(updatedPasswords);
+    setForm({ site: "", username: "", password: "" });
   };
 
-  const deletePassword = () => {
-    const updatedPasswords = [...passwordArray, { ...form, id: uuidv4() }];
+  const editPassword = (id) => {
+    console.log(`Editing Password with id ${id}`);
+
+    const passwordToEdit = passwordArray.find((password) => password.id === id);
+    setForm(passwordToEdit);
+    const updatedPasswords = passwordArray.filter(
+      (password) => password.id !== id
+    );
     setPasswordArray(updatedPasswords);
-    localStorage.setItem("passwords", JSON.stringify(updatedPasswords));
-    console.log(updatedPasswords);
+  };
+
+  const deletePassword = (id) => {
+    console.log(`Deleting Password with id ${id}`);
+    let c = confirm(`Do you really want to delete this password `);
+    if (c) {
+      const updatedPasswords = passwordArray.filter(
+        (password) => password.id !== id
+      );
+
+      setPasswordArray(updatedPasswords);
+      localStorage.setItem("passwords", JSON.stringify(updatedPasswords));
+
+      console.log(updatedPasswords);
+    }
   };
 
   const handleChange = (e) => {
@@ -112,7 +136,11 @@ const Manager = () => {
             Save
           </button>
         </div>
-        <Table passwordArray={passwordArray} />
+        <Table
+          passwordArray={passwordArray}
+          deletePassword={deletePassword}
+          editPassword={editPassword}
+        />
       </div>
     </>
   );
