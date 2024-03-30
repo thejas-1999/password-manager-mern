@@ -1,4 +1,6 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const { MONGODB_URL } = require("./config.js");
 
 const app = express();
 
@@ -8,6 +10,14 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.listen(PORT, () => {
-  console.log(`app is running on http://localhost:${PORT}`);
-});
+mongoose
+  .connect(MONGODB_URL)
+  .then(() => {
+    console.log(`app is connected to database`);
+    app.listen(PORT, () => {
+      console.log(`app is running on http://localhost:${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
