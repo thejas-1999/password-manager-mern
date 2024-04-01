@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-
+import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import Table from "./Table";
 
@@ -10,16 +10,37 @@ const Manager = () => {
   const [passwordArray, setPasswordArray] = useState([]);
 
   useEffect(() => {
-    let passwords = localStorage.getItem("passwords");
-    if (passwords) {
-      try {
-        setPasswordArray(JSON.parse(passwords));
-      } catch (error) {
-        console.error("Error parsing JSON:", error);
-        // Handle the error, maybe clear localStorage or set a default value
-      }
-    }
-  }, []);
+    fetchPasswords();
+  }, []); // Run only once on component mount
+
+  const fetchPasswords = () => {
+    axios
+      .get("http://localhost:5000/api/pass")
+      .then((response) => {
+        setPasswordArray(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching passwords:", error);
+        // Handle error, show message, etc.
+      });
+  };
+
+  const handlePass = () => {
+    const data = form;
+    axios
+      .post(`http://localhost:5000/api/pass`, data)
+      .then((response) => {
+        console.log("Password added successfully:", response.data);
+        // Update passwordArray state with the new password
+        setPasswordArray([...passwordArray, response.data]);
+        // Optionally, you can also reset the form after adding the password
+        setForm({ site: "", username: "", password: "" });
+      })
+      .catch((error) => {
+        console.error("Error adding password:", error);
+        // Handle error, show message, etc.
+      });
+  };
 
   const showPassword = () => {
     if (ref.current.src.includes("icons/hidden.png")) {
@@ -29,15 +50,6 @@ const Manager = () => {
       ref.current.src = "icons/hidden.png";
       passwordref.current.type = "password";
     }
-  };
-
-  const savePassword = () => {
-    const updatedPasswords = [...passwordArray, { ...form, id: uuidv4() }];
-    setPasswordArray(updatedPasswords);
-    localStorage.setItem("passwords", JSON.stringify(updatedPasswords));
-    console.log(updatedPasswords);
-
-    setForm({ site: "", username: "", password: "" });
   };
 
   const editPassword = (id) => {
@@ -53,17 +65,18 @@ const Manager = () => {
 
   const deletePassword = (id) => {
     console.log(`Deleting Password with id ${id}`);
-    let c = confirm(`Do you really want to delete this password `);
-    if (c) {
-      const updatedPasswords = passwordArray.filter(
-        (password) => password.id !== id
-      );
-
-      setPasswordArray(updatedPasswords);
-      localStorage.setItem("passwords", JSON.stringify(updatedPasswords));
-
-      console.log(updatedPasswords);
-    }
+    axios
+      .delete(`http://localhost:5000/api/pass/${id}`)
+      .then((response) => {
+        console.log("Password deleted successfully:", response.data);
+        // Optionally, update state or perform any necessary actions after deleting password
+        // Here you can refetch passwords to update the list
+        fetchPasswords();
+      })
+      .catch((error) => {
+        console.error("Error deleting password:", error);
+        // Handle error, show message, etc.
+      });
   };
 
   const handleChange = (e) => {
@@ -128,7 +141,7 @@ const Manager = () => {
           </div>
 
           <button
-            onClick={savePassword}
+            onClick={handlePass} // Corrected onClick function call
             className="flex gap-2 justify-center items-center bg-purple-500 rounded-full px-4 py-2 w-fit hover:bg-purple-300 border-2 border-purple-700 ring"
           >
             <lord-icon

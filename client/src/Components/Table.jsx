@@ -1,7 +1,8 @@
+import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Table = ({ passwordArray, deletePassword, editPassword }) => {
+const Table = ({ passwordArray, deletePassword }) => {
   const copyText = (text) => {
     navigator.clipboard
       .writeText(text)
@@ -17,7 +18,7 @@ const Table = ({ passwordArray, deletePassword, editPassword }) => {
         });
       })
       .catch((error) => {
-        toast.error("Failed to copy to clipboard", {
+        toast.error("Failed to copy to clipboard. Please try again.", {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -29,6 +30,7 @@ const Table = ({ passwordArray, deletePassword, editPassword }) => {
         console.error("Error copying to clipboard:", error);
       });
   };
+
   return (
     <div className="passwords">
       <ToastContainer
@@ -44,7 +46,7 @@ const Table = ({ passwordArray, deletePassword, editPassword }) => {
         theme="light"
       />
       <h2 className="font-bold text-2xl py-4">Your Passwords</h2>
-      {passwordArray.length === 0 && <div>No Password To Show</div>}
+      {passwordArray.length === 0 && <div>No Passwords To Show</div>}
       {passwordArray.length !== 0 && (
         <table className="table-auto w-full rounded-md overflow-hidden">
           <thead className="bg-purple-800 text-white">
@@ -56,8 +58,8 @@ const Table = ({ passwordArray, deletePassword, editPassword }) => {
             </tr>
           </thead>
           <tbody className="bg-purple-100">
-            {passwordArray.map((item, index) => (
-              <tr key={index}>
+            {passwordArray.map((item) => (
+              <tr key={item._id}>
                 <td className="py-2 border border-white text-center w-32">
                   <div className="flex items-center justify-center gap-3">
                     <a href={item.site}>{item.site}</a>
@@ -103,13 +105,7 @@ const Table = ({ passwordArray, deletePassword, editPassword }) => {
                 <td className="py-2 border border-white text-center w-32">
                   <div className="flex items-center justify-center gap-3">
                     <div className="cursor-pointer ">
-                      <span onClick={() => editPassword(item.id)}>
-                        <lord-icon
-                          src="https://cdn.lordicon.com/gwlusjdu.json"
-                          trigger="hover"
-                        ></lord-icon>
-                      </span>
-                      <span onClick={() => deletePassword(item.id)}>
+                      <span onClick={() => deletePassword(item._id)}>
                         <lord-icon
                           src="https://cdn.lordicon.com/skkahier.json"
                           trigger="hover"
@@ -126,4 +122,5 @@ const Table = ({ passwordArray, deletePassword, editPassword }) => {
     </div>
   );
 };
+
 export default Table;
